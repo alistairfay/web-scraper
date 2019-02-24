@@ -19,15 +19,15 @@ def visit_page(page, allowed_domain):
         else:
             if not href.startswith("#") and href not in external_urls:
                 external_urls.append(href)
-    for link in soup.find_all('img'):
+    for link in soup.find_all(True):
         src=link.get('src')
-        if src not in static_resources:
+        if src !=None and src not in static_resources:
             static_resources.append(src)
     page_data={"address":page,"internal_urls":internal_urls,"external_urls":external_urls,"static_resources":static_resources}
     return page_data
 
-root_url="https://www.claythorn.com"
-allowed_domain="claythorn.com"
+root_url=input("Enter a root url to crawl:\n")
+allowed_domain=input("Enter the domain to use as a boundary for the crawl:\n")
 internal_urls=[]
 visited_urls=[]
 site_data=[]
@@ -45,14 +45,3 @@ while len(internal_urls) > 0:
 
 pp = pprint.PrettyPrinter(indent=2)
 pp.pprint(site_data)
-
-
-
-
-
-#for url in site_urls:
-#    if allowed_domain in url:
-#        #visit page
-#    else:
-#        #update external_urls
-##output sitemap
