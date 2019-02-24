@@ -51,5 +51,7 @@ while len(internal_urls) > 0:
     internal_urls.remove(this_page)
     visited_urls.append(this_page)
 
-pp = pprint.PrettyPrinter(indent=2)
-pp.pprint(site_data)
+with open('site_map.txt', 'w') as f:
+    pp = pprint.PrettyPrinter(indent=2,stream=f)
+    pp.pprint(site_data)
+f.close
