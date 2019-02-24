@@ -4,36 +4,42 @@ import pprint
 
 def visit_page(page, allowed_domain):
     '''analyse a page for internal links, external links, static resources''' 
+    print("visiting " + str(page) + "...")
     internal_urls=[]
     external_urls=[]
     static_resources=[]
     request=requests.get(page)
-    request_text=request.text
-    soup=BeautifulSoup(request_text,"html.parser")
-    #print(soup)
-    for link in soup.find_all('a'):
-        href=link.get('href')
-        if allowed_domain in href:
-            if href not in internal_urls:
-                internal_urls.append(href)
-        else:
-            if not href.startswith("#") and href not in external_urls:
-                external_urls.append(href)
-    for link in soup.find_all(True):
-        src=link.get('src')
-        if src !=None and src not in static_resources:
-            static_resources.append(src)
-    page_data={"address":page,"internal_urls":internal_urls,"external_urls":external_urls,"static_resources":static_resources}
+    if request.status_code==200:
+        request_text=request.text
+        soup=BeautifulSoup(request_text,"html.parser")
+        for link in soup.find_all('a'):
+            href=link.get('href')
+            if allowed_domain in href:
+                if href not in internal_urls:
+                    internal_urls.append(href)
+            else:
+                if not href.startswith("#") and href not in external_urls:
+                    external_urls.append(href)
+        for link in soup.find_all(True):
+            src=link.get('src')
+            if src !=None and src not in static_resources:
+                static_resources.append(src)
+        page_data={"address":page,"internal_urls":internal_urls,"external_urls":external_urls,"static_resources":static_resources}
+    else:
+        page_data={"address":page,"internal_urls":[],"external_urls":[],"static_resources":[]}
+    #print(page_data)
     return page_data
 
-root_url=input("Enter a root url to crawl:\n")
-allowed_domain=input("Enter the domain to use as a boundary for the crawl:\n")
+root_url="http://wiprodigital.com/"
+allowed_domain="wiprodigital.com"
 internal_urls=[]
 visited_urls=[]
 site_data=[]
 
 internal_urls.append(root_url)
 while len(internal_urls) > 0:
+    print("internal urls count " + str(len(internal_urls)))
+    print("visited urls count " + str(len(visited_urls)))
     this_page=internal_urls[0]
     page_data=visit_page(this_page, allowed_domain)
     site_data.append(page_data)
