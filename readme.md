@@ -1,15 +1,24 @@
 # requirements
 
-python3 with beautiful soup
-python3-bs4 
+## option 1 - python
+python3 with 
+beautiful soup and requests
+
+## option 2 - container
+container runtime (docker) and access to docker hub
 
 # how to run
 
+## option 1 - python
 call the script via python3
 
 e.g.
 
 `python3 scraper.py`
+
+## option 2 - container
+
+`docker run alistairfay/web-scraper:0.1`
 
 output will be saved to site_map.txt
 
@@ -23,7 +32,6 @@ longer than expected was taken to get to grips with the basics of python and par
 
 # todo
 
-multi threading
-input and validation
-error handling
-dockerise
+- multi threading
+- input and validation
+- error handling
