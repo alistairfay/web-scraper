@@ -28,8 +28,6 @@ selected python as there are several libraries for crawling and parsing web cont
 
 hands on python has been on my todo list for a while and a practical challenge is a great way to pick up some skills
 
-longer than expected was taken to get to grips with the basics of python and parsing web requests and as such no time has been spent packaging up in to a format such as a docker image.  as such the requirement to 
-
 # todo
 
 - multi threading
