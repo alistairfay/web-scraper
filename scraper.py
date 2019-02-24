@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import pprint
+from urllib.parse import urlparse
 
 def visit_page(page, allowed_domain):
     '''analyse a page for internal links, external links, static resources''' 
@@ -14,7 +15,8 @@ def visit_page(page, allowed_domain):
         soup=BeautifulSoup(request_text,"html.parser")
         for link in soup.find_all('a'):
             href=link.get('href')
-            if allowed_domain in href:
+            url = urlparse(href)
+            if allowed_domain in url:
                 if href not in internal_urls:
                     internal_urls.append(href)
             else:

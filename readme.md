@@ -15,5 +15,3 @@ e.g.
 # todo
 
 multi threading
-input validation
-improve logic on is this a subdomain
