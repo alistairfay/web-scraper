@@ -16,3 +16,4 @@ e.g.
 
 multi threading
 input validation
+improve logic on is this a subdomain
